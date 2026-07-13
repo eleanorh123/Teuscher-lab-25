@@ -1,7 +1,13 @@
-import numpy
-import scipy.special
+import torch
+import torch.sigmoid
 import matplotlib.pyplot
 import random
+import torchvision
+import numpy
+import scipy
+
+
+
 
 
 class NeuralNetwork:
@@ -12,8 +18,8 @@ class NeuralNetwork:
         self.onodes = outputnodes
 
         # link weight matrices, weightih (input to hidden) and weightho (hidden to output)
-        self.weightih = numpy.random.normal(0.0, pow(self.inodes, -0.5), (self.hnodes, self.inodes))
-        self.weightho = numpy.random.normal(0.0, pow(self.hnodes, -0.5), (self.onodes, self.hnodes))
+        self.weightih = torch.empty(self.hnodes, self.inodes).normal_(0.0, pow(self.inodes, -0.5))
+        self.weightho = torch.empty(self.onodes, self.hnodes).normal_(0.0, pow(self.hnodes, -0.5))
 
         self.lr = learningrate
 
@@ -24,8 +30,6 @@ class NeuralNetwork:
 
     def train(self, inputs_list, targets_list):
         # makes the input list a 2D array
-        inputs = numpy.array(inputs_list, ndmin=2).T  # this needs to equal (inputnodes, 1)
-        targets = numpy.array(targets_list, ndmin=2).T
 
         # calculates the inputs going into the hidden layer
         hidden_inputs = numpy.dot(self.weightih, inputs)
@@ -48,7 +52,7 @@ class NeuralNetwork:
 
     def query(self, inputs_list):
         # convert inputs list to 2d array
-        inputs = numpy.array(inputs_list, ndmin=2).T
+        inputs = torch.tensor(inputs_list, dtype=torch.float)
 
         hidden_inputs = numpy.dot(self.weightih, inputs)
         hidden_outputs = self.activation_function(hidden_inputs)
@@ -277,7 +281,7 @@ def runXOR():
 
 # runAND()
 # runXOR()
-runHandwrittenLetters()
+#runHandwrittenLetters()
 # runMINST()
 
 '''
