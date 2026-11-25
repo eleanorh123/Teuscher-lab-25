@@ -1,4 +1,4 @@
-'Standardize audio clip processing for both models. ANN is now GRU-based'
+#Standardize audio clip processing for both models. ANN is now GRU-based
 import argparse
 import csv
 import hashlib
@@ -84,7 +84,7 @@ def prepare(args):
             save_json(out / 'excluded_audio.json', excluded)
             print(f"Skipping {reason}: {row['path']}", flush=True)
             continue
-        # Extract before batch padding: short clips retain their actual length.
+        #Extract before batch padding (short clips retain their actual length)
         x = librosa.feature.mfcc(y=audio, sr=args.sample_rate, n_mfcc=args.n_mfcc,
             n_fft=args.n_fft, hop_length=args.hop_length, center=True).T.astype('float32')
         if not np.isfinite(x).all():
