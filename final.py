@@ -1,3 +1,4 @@
+'Standardize audio clip processing for both models. ANN is now GRU-based'
 import argparse
 import csv
 import hashlib
