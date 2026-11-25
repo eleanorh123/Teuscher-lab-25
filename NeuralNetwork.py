@@ -223,3 +223,5 @@ if __name__ == '__main__':
         learning_rate=args.learning_rate
     )
 
+#Add results to a file that gets saved to my computer
+#only add the loss values of each epoch, and the averaged performance
